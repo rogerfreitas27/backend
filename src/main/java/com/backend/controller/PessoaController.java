@@ -1,10 +1,11 @@
 package com.backend.controller;
 
 
+import com.backend.dto.PessoaDto;
 import com.backend.entity.Pessoa;
 import com.backend.service.PessoaService;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+
+import javax.validation.Valid;
 
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -32,9 +35,9 @@ public class PessoaController {
             @ApiResponse(responseCode = "400", description = "Falha ao cadastrar"),
 
     })
-    public ResponseEntity<Pessoa> save(@Valid @RequestBody Pessoa pessoa) {
+    public ResponseEntity<Pessoa> save(@Valid @RequestBody PessoaDto pessoaDto) {
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(pessoaService.save(pessoa));
+        return ResponseEntity.status(HttpStatus.CREATED).body(pessoaService.save(pessoaDto));
 
     }
 

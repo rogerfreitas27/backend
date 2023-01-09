@@ -1,6 +1,11 @@
 package com.backend.entity;
 
-import jakarta.persistence.*;
+import com.backend.dto.EnderecoDto;
+import com.backend.dto.PessoaDto;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 
 import java.util.Objects;
 
@@ -14,12 +19,37 @@ public class Endereco {
     private String cep;
     private String numero;
     private String cidade;
+
+    @JsonIgnore
     private Boolean principal;
 
-    @ManyToOne(fetch = FetchType.LAZY,  cascade= CascadeType.ALL)
-    @JoinColumn(name="pessoa_id")
+    @ManyToOne(cascade =CascadeType.MERGE)
+    @JsonIgnore
     private Pessoa pessoa;
 
+    public Endereco(){}
+    private Endereco(Builder builder) {
+        this.id = builder.id;
+        this.logradouro = builder.logradouro;
+        this.cep = builder.cep;
+        this.numero = builder.numero;
+        this.cidade= builder.cidade;
+        this.principal = builder.principal;
+        this.pessoa = builder.pessoa;
+
+    }
+
+    @Override
+    public String toString() {
+        return "Endereco{" +
+                "id=" + id +
+                ", logradouro=" + logradouro  +
+                ", cep=" + cep  +
+                ", numero=" + numero  +
+                ", cidade=" + cidade  +
+                ", principal=" + principal +
+                '}';
+    }
 
     public Long getId() {
         return id;
@@ -77,15 +107,75 @@ public class Endereco {
         this.pessoa = pessoa;
     }
 
+
+
+
+
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Endereco endereco)) return false;
-        return id.equals(endereco.id) && logradouro.equals(endereco.logradouro) && cep.equals(endereco.cep) && numero.equals(endereco.numero) && cidade.equals(endereco.cidade);
+        return id.equals(endereco.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, logradouro, cep, numero, cidade);
+        return Objects.hash(id);
+    }
+
+
+    public static class Builder {
+
+        private Long id;
+        private String logradouro;
+        private String cep;
+        private String numero;
+        private String cidade;
+
+        private Boolean principal;
+
+
+        private Pessoa pessoa;
+
+        public Builder (Long id){
+            this.id=id;
+        }
+
+        public Builder logradouro(String logradouro) {
+            this.logradouro = logradouro;
+            return this;
+        }
+
+
+        public Builder cep(String cep) {
+            this.cep = cep;
+            return this;
+        }
+
+        public Builder numero(String numero) {
+            this.numero = numero;
+            return this;
+        }
+
+        public Builder cidade(String cidade) {
+            this.cidade = cidade;
+            return this;
+        }
+
+        public Builder principal(Boolean principal) {
+            this.principal = principal;
+            return this;
+        }
+
+        public Builder pessoa(Pessoa pessoa) {
+            this.pessoa = pessoa;
+            return this;
+        }
+
+        public Endereco build() {
+            return new Endereco(this);
+        }
     }
 }

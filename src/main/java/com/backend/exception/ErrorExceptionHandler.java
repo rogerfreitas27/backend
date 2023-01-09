@@ -1,6 +1,7 @@
 package com.backend.exception;
 
 
+import com.fasterxml.jackson.databind.exc.InvalidDefinitionException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -35,6 +36,16 @@ public class ErrorExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(ObjectNotFoundException.class)
     public String ObjectNotFoundException(ObjectNotFoundException  ex) {
+
+        log.warn("Erro: " + ex.getMessage());
+        return   ex.getMessage() ;
+
+    }
+
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(InvalidDefinitionException.class)
+    public String InvalidDefinitionException(InvalidDefinitionException  ex) {
 
         log.warn("Erro: " + ex.getMessage());
         return   ex.getMessage() ;

@@ -1,10 +1,12 @@
 package com.backend.service;
 
 
+import com.backend.dto.EnderecoDto;
 import com.backend.entity.Endereco;
 import com.backend.entity.Pessoa;
 import com.backend.exception.ObjectNotFoundException;
 import com.backend.repository.EnderecoRepository;
+import com.backend.repository.PessoaRepository;
 import com.backend.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,11 +21,27 @@ public class EnderecoService {
     @Autowired
     private EnderecoRepository enderecoRepository;
     @Autowired
-    private PessoaService pessoaService;
+    private PessoaRepository pessoaRepository;
 
-    public Endereco save(Endereco endereco){
-        pessoaService.findById(endereco.getPessoa().getId());
-        return enderecoRepository.save(endereco);
+    public Endereco save(Long idPessoa,Endereco endereco){
+        Pessoa pessoa = new Pessoa();
+        pessoa = pessoaRepository.findById(idPessoa).orElseThrow(() ->
+                new ObjectNotFoundException("Pessoa não encontrada"));
+
+        Endereco end = new Endereco.Builder(null)
+                      .logradouro(endereco.getLogradouro())
+                      .cep(endereco.getCep())
+                      .numero(endereco.getNumero())
+                      .principal(false)
+                      .cidade(endereco.getCidade())
+                      .pessoa(pessoa)
+                      .build();
+
+        return enderecoRepository.save(end);
+    }
+
+    public void saveAll(Set<Endereco> Enderecos){
+       Set<Endereco> enderecos = new HashSet<>(enderecoRepository.saveAll(Enderecos));
     }
 
     public List<Endereco> enderecos(){
@@ -38,7 +56,7 @@ public class EnderecoService {
         enderecos.stream().filter(e-> e.getPrincipal() == true).forEach(e->e.setPrincipal(false));
         endereco.setPrincipal(true);
         if(endereco.getPessoa().getId()==null)
-              return save(endereco);
+              return enderecoRepository.save(endereco);
 
         enderecos.add(endereco);
         enderecoRepository.saveAll(enderecos);
