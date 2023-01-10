@@ -1,6 +1,20 @@
 # Gerenciador de Pessoas Backend
 
 
+# Perguntas do desafio
+
+Qualidade de código
+
+
+    1. Durante a implementação de uma nova funcionalidade de software solicitada, quais critérios você avalia e implementa para garantia de qualidade de software?
+       Como júnior vou avaliar  os requisitos passados e vou procurar seguir os padrões da comunidade de desenvolvimento e da empresa, já que este foram testados e aprovados.
+
+
+    2. Em qual etapa da implementação você considera a qualidade de software?
+       Em todas as etapas, hoje é inimaginável pensar em desenvolvimento de  software sem processos que visão a qualidade do mesmo.
+
+
+
 # Descrição
 
 
