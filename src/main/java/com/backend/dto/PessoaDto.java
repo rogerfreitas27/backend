@@ -5,6 +5,8 @@ import com.backend.entity.Endereco;
 import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.Set;
@@ -15,6 +17,8 @@ public class PessoaDto {
     @NotBlank(message="Campo Obrigatório")
     @Size(min = 3, max=255,message="campo com no mínimo 3 e no máximo de 255 caracteres.")
     private String nome;
+
+    @PastOrPresent(message = "Data futuro invalida")
     private LocalDate nascimento;
 
     private Set<EnderecoDto> enderecosDto;

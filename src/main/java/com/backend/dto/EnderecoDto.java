@@ -1,11 +1,26 @@
 package com.backend.dto;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+
 public class EnderecoDto {
 
-
+    @NotBlank(message="Campo Obrigatório")
+    @Size(min = 3, max=255,message="campo com no mínimo 3 e no máximo de 255 caracteres.")
     private String logradouro;
+
+
+    @NotBlank(message="Campo Obrigatório")
+    @Size(min = 8, max=8,message="campo com no mínimo 8 e no máximo de 8 caracteres.")
+    @Pattern(regexp = "^[0-9]+$", message="Apenas numeros")
     private String cep;
     private String numero;
+
+
+    @NotBlank(message="Campo Obrigatório")
+    @Size(min = 3, max=255,message="campo com no mínimo 3 e no máximo de 255 caracteres.")
     private String cidade;
 
 

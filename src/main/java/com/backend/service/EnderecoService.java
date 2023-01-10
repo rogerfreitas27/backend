@@ -1,20 +1,16 @@
 package com.backend.service;
 
-
-import com.backend.dto.EnderecoDto;
 import com.backend.entity.Endereco;
 import com.backend.entity.Pessoa;
 import com.backend.exception.ObjectNotFoundException;
 import com.backend.repository.EnderecoRepository;
 import com.backend.repository.PessoaRepository;
-import com.backend.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
+
 
 @Service
 public class EnderecoService {
@@ -28,7 +24,7 @@ public class EnderecoService {
         pessoa = pessoaRepository.findById(idPessoa).orElseThrow(() ->
                 new ObjectNotFoundException("Pessoa não encontrada"));
 
-        Endereco end = new Endereco.Builder(null)
+        Endereco end = new Endereco.Builder()
                       .logradouro(endereco.getLogradouro())
                       .cep(endereco.getCep())
                       .numero(endereco.getNumero())
@@ -64,6 +60,8 @@ public class EnderecoService {
     }
 
     public Set<Endereco> findEnderecoByPessoa(Long id){
+        pessoaRepository.findById(id).orElseThrow(() ->
+                new ObjectNotFoundException("Pessoa não encontrada"));
         return enderecoRepository.findEnderecoByPessoa(id);
     }
 

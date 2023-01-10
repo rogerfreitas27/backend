@@ -35,7 +35,7 @@ public class PessoaService {
 
       Set<Endereco> enderecoSet =new HashSet<>();
        for(EnderecoDto end: pessoaDto.getEnderecosDto()){
-           Endereco endereco =new Endereco.Builder(null)
+           Endereco endereco =new Endereco.Builder()
                    .logradouro(end.getLogradouro())
                    .cep(end.getCep())
                    .numero(end.getNumero())
@@ -44,7 +44,7 @@ public class PessoaService {
                    .pessoa(pessoa)
                    .build();
              pessoa.addEndereco(endereco);
-         //  enderecoSet.add(endereco);
+
        }
 
 

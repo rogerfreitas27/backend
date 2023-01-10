@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
+import javax.validation.ConstraintViolationException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,6 +47,15 @@ public class ErrorExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(InvalidDefinitionException.class)
     public String InvalidDefinitionException(InvalidDefinitionException  ex) {
+
+        log.warn("Erro: " + ex.getMessage());
+        return   ex.getMessage() ;
+
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ConstraintViolationException.class)
+    public String ConstraintViolationException(ConstraintViolationException  ex) {
 
         log.warn("Erro: " + ex.getMessage());
         return   ex.getMessage() ;

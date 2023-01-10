@@ -12,6 +12,6 @@ insert into pessoa (nome,nascimento) values('Carolina Vasquez','1993-11-30');
 
 -- Insert de enderecos
 
-insert into endereco (logradouro,cep,numero,cidade,principal,pessoa_id) values('Rua Projetada F','87307-022','311','Campo Mourão',false,1);
-insert into endereco (logradouro,cep,numero,cidade,principal,pessoa_id) values('Rua Quarenta e Quatro-1','49044-469','340','Aracaju',true,1);
-insert into endereco (logradouro,cep,numero,cidade,principal,pessoa_id) values('Rua Esperança','23065-069','140','Recife',false,1);
+insert into endereco (logradouro,cep,numero,cidade,principal,pessoa_id) values('Rua Projetada F','87307022','311','Campo Mourão',false,1);
+insert into endereco (logradouro,cep,numero,cidade,principal,pessoa_id) values('Rua Quarenta e Quatro-1','49044469','340','Aracaju',true,1);
+insert into endereco (logradouro,cep,numero,cidade,principal,pessoa_id) values('Rua Esperança','23065069','140','Recife',false,1);
